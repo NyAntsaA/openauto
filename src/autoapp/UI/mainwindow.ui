@@ -48,7 +48,7 @@ color: rgb(238, 238, 236);</string>
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>330</y>
+      <y>230</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -67,13 +67,29 @@ color: rgb(238, 238, 236);</string>
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>380</y>
+      <y>280</y>
       <width>161</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>Exit</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonRelaunch">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>380</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Relaunch</string>
     </property>
     <property name="autoDefault">
      <bool>false</bool>
@@ -193,7 +209,7 @@ color: rgb(238, 238, 236);</string>
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>230</y>
+      <y>130</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -212,7 +228,7 @@ color: rgb(238, 238, 236);</string>
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>280</y>
+      <y>180</y>
       <width>161</width>
       <height>41</height>
      </rect>
@@ -250,6 +266,7 @@ color: rgb(238, 238, 236);</string>
   <tabstop>pushButtonWirelessConnection</tabstop>
   <tabstop>pushButtonSettings</tabstop>
   <tabstop>pushButtonExit</tabstop>
+  <tabstop>pushButtonRelaunch</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -16,6 +16,7 @@
 *  along with openauto. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cstdlib>
 #include <thread>
 #include <QApplication>
 #include <QScreen>
@@ -100,6 +101,10 @@ int main(int argc, char* argv[])
     connectDialog.setWindowFlags(Qt::WindowStaysOnTopHint);
 
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::exit, []() { std::exit(0); });
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::relaunch, []() {
+        OPENAUTO_LOG(info) << "[OpenAuto] System relaunch (reboot) requested by user (!!! linux only and requires elevated privileges).";
+        try { system("sudo reboot"); } catch (...) { ;; };
+    });
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings, &settingsWindow, &autoapp::ui::SettingsWindow::showFullScreen);
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openConnectDialog, &connectDialog, &autoapp::ui::ConnectDialog::exec);
 
