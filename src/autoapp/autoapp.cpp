@@ -18,6 +18,7 @@
 
 #include <thread>
 #include <QApplication>
+#include <QScreen>
 #include <f1x/aasdk/USB/USBHub.hpp>
 #include <f1x/aasdk/USB/ConnectedAccessoriesEnumerator.hpp>
 #include <f1x/aasdk/USB/AccessoryModeQueryChain.hpp>
@@ -108,6 +109,13 @@ int main(int argc, char* argv[])
         qApplication.setOverrideCursor(cursor);
     });
 
+    /* Resize mainWindow to fill screen. Even if it does not resize app correctly */
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    auto screenWidth = screenGeometry.width();
+    auto screenHeight = screenGeometry.height();
+    OPENAUTO_LOG(info) << "Screen Width x Height : " << screenWidth << "x" << screenHeight;
+    mainWindow.resize(screenWidth, screenHeight);
     mainWindow.showFullScreen();
 
     aasdk::usb::USBWrapper usbWrapper(usbContext);
