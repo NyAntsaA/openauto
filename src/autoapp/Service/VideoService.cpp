@@ -95,6 +95,12 @@ void VideoService::onAVChannelStartIndication(const aasdk::proto::messages::AVCh
     channel_->receive(this->shared_from_this());
 }
 
+void VideoService::onAVChannelStopIndication(const aasdk::proto::messages::AVChannelStopIndication& indication)
+{
+    OPENAUTO_LOG(error) << __func__ << " NOT IMPLEMENTED !";
+    ;;
+}
+
 void VideoService::onAVMediaWithTimestampIndication(aasdk::messenger::Timestamp::ValueType timestamp, const aasdk::common::DataConstBuffer& buffer)
 {
     videoOutput_->write(timestamp, buffer);

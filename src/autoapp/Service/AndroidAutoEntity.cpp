@@ -196,6 +196,12 @@ void AndroidAutoEntity::onAudioFocusRequest(const aasdk::proto::messages::AudioF
     controlServiceChannel_->receive(this->shared_from_this());
 }
 
+void AndroidAutoEntity::onVoiceSessionRequest(const aasdk::proto::messages::VoiceSessionRequest& request)
+{
+    OPENAUTO_LOG(error) << __func__ << " NOT IMPLEMENTED !";
+    ;;
+}
+
 void AndroidAutoEntity::onShutdownRequest(const aasdk::proto::messages::ShutdownRequest& request)
 {
     OPENAUTO_LOG(info) << "[AndroidAutoEntity] Shutdown request, reason: " << request.reason();
@@ -231,6 +237,12 @@ void AndroidAutoEntity::onPingResponse(const aasdk::proto::messages::PingRespons
 {
     pinger_->pong();
     controlServiceChannel_->receive(this->shared_from_this());
+}
+
+void AndroidAutoEntity::onPingRequest(const aasdk::proto::messages::PingRequest& request)
+{
+    OPENAUTO_LOG(error) << __func__ << " NOT IMPLEMENTED !";
+    ;;
 }
 
 void AndroidAutoEntity::onChannelError(const aasdk::error::Error& e)
