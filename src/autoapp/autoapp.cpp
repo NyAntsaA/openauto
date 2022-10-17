@@ -20,12 +20,12 @@
 #include <thread>
 #include <QApplication>
 #include <QScreen>
-#include <f1x/aasdk/USB/USBHub.hpp>
-#include <f1x/aasdk/USB/ConnectedAccessoriesEnumerator.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryChain.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryChainFactory.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryFactory.hpp>
-#include <f1x/aasdk/TCP/TCPWrapper.hpp>
+#include <aasdk/USB/USBHub.hpp>
+#include <aasdk/USB/ConnectedAccessoriesEnumerator.hpp>
+#include <aasdk/USB/AccessoryModeQueryChain.hpp>
+#include <aasdk/USB/AccessoryModeQueryChainFactory.hpp>
+#include <aasdk/USB/AccessoryModeQueryFactory.hpp>
+#include <aasdk/TCP/TCPWrapper.hpp>
 #include <f1x/openauto/autoapp/App.hpp>
 #include <f1x/openauto/autoapp/Configuration/IConfiguration.hpp>
 #include <f1x/openauto/autoapp/Configuration/RecentAddressesList.hpp>
@@ -37,7 +37,6 @@
 #include <f1x/openauto/autoapp/UI/ConnectDialog.hpp>
 #include <f1x/openauto/Common/Log.hpp>
 
-namespace aasdk = f1x::aasdk;
 namespace autoapp = f1x::openauto::autoapp;
 using ThreadPool = std::vector<std::thread>;
 
