@@ -44,6 +44,7 @@ public:
 
 signals:
     void exit();
+    void relaunch();
     void openSettings();
     void toggleCursor();
     void openConnectDialog();

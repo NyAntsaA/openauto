@@ -16,14 +16,16 @@
 *  along with openauto. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cstdlib>
 #include <thread>
 #include <QApplication>
-#include <f1x/aasdk/USB/USBHub.hpp>
-#include <f1x/aasdk/USB/ConnectedAccessoriesEnumerator.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryChain.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryChainFactory.hpp>
-#include <f1x/aasdk/USB/AccessoryModeQueryFactory.hpp>
-#include <f1x/aasdk/TCP/TCPWrapper.hpp>
+#include <QScreen>
+#include <aasdk/USB/USBHub.hpp>
+#include <aasdk/USB/ConnectedAccessoriesEnumerator.hpp>
+#include <aasdk/USB/AccessoryModeQueryChain.hpp>
+#include <aasdk/USB/AccessoryModeQueryChainFactory.hpp>
+#include <aasdk/USB/AccessoryModeQueryFactory.hpp>
+#include <aasdk/TCP/TCPWrapper.hpp>
 #include <f1x/openauto/autoapp/App.hpp>
 #include <f1x/openauto/autoapp/Configuration/IConfiguration.hpp>
 #include <f1x/openauto/autoapp/Configuration/RecentAddressesList.hpp>
@@ -35,7 +37,6 @@
 #include <f1x/openauto/autoapp/UI/ConnectDialog.hpp>
 #include <f1x/openauto/Common/Log.hpp>
 
-namespace aasdk = f1x::aasdk;
 namespace autoapp = f1x::openauto::autoapp;
 using ThreadPool = std::vector<std::thread>;
 
@@ -99,6 +100,10 @@ int main(int argc, char* argv[])
     connectDialog.setWindowFlags(Qt::WindowStaysOnTopHint);
 
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::exit, []() { std::exit(0); });
+    QObject::connect(&mainWindow, &autoapp::ui::MainWindow::relaunch, []() {
+        OPENAUTO_LOG(info) << "[OpenAuto] System relaunch (reboot) requested by user (!!! linux only and requires elevated privileges).";
+        try { system("sudo reboot"); } catch (...) { ;; };
+    });
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openSettings, &settingsWindow, &autoapp::ui::SettingsWindow::showFullScreen);
     QObject::connect(&mainWindow, &autoapp::ui::MainWindow::openConnectDialog, &connectDialog, &autoapp::ui::ConnectDialog::exec);
 
@@ -108,6 +113,13 @@ int main(int argc, char* argv[])
         qApplication.setOverrideCursor(cursor);
     });
 
+    /* Resize mainWindow to fill screen. Even if it does not resize app correctly */
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    auto screenWidth = screenGeometry.width();
+    auto screenHeight = screenGeometry.height();
+    OPENAUTO_LOG(info) << "Screen Width x Height : " << screenWidth << "x" << screenHeight;
+    mainWindow.resize(screenWidth, screenHeight);
     mainWindow.showFullScreen();
 
     aasdk::usb::USBWrapper usbWrapper(usbContext);

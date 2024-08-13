@@ -16,7 +16,7 @@
 *  along with openauto. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <f1x/aasdk/Channel/Control/ControlServiceChannel.hpp>
+#include <aasdk/Channel/Control/ControlServiceChannel.hpp>
 #include <f1x/openauto/autoapp/Service/AndroidAutoEntity.hpp>
 #include <f1x/openauto/Common/Log.hpp>
 
@@ -196,6 +196,12 @@ void AndroidAutoEntity::onAudioFocusRequest(const aasdk::proto::messages::AudioF
     controlServiceChannel_->receive(this->shared_from_this());
 }
 
+void AndroidAutoEntity::onVoiceSessionRequest(const aasdk::proto::messages::VoiceSessionRequest& request)
+{
+    OPENAUTO_LOG(error) << __func__ << " NOT IMPLEMENTED !";
+    ;;
+}
+
 void AndroidAutoEntity::onShutdownRequest(const aasdk::proto::messages::ShutdownRequest& request)
 {
     OPENAUTO_LOG(info) << "[AndroidAutoEntity] Shutdown request, reason: " << request.reason();
@@ -233,6 +239,12 @@ void AndroidAutoEntity::onPingResponse(const aasdk::proto::messages::PingRespons
     controlServiceChannel_->receive(this->shared_from_this());
 }
 
+void AndroidAutoEntity::onPingRequest(const aasdk::proto::messages::PingRequest& request)
+{
+    OPENAUTO_LOG(error) << __func__ << " NOT IMPLEMENTED !";
+    ;;
+}
+
 void AndroidAutoEntity::onChannelError(const aasdk::error::Error& e)
 {
     OPENAUTO_LOG(error) << "[AndroidAutoEntity] channel error: " << e.what();
@@ -258,8 +270,8 @@ void AndroidAutoEntity::schedulePing()
         if(error != aasdk::error::ErrorCode::OPERATION_ABORTED &&
            error != aasdk::error::ErrorCode::OPERATION_IN_PROGRESS)
         {
-            OPENAUTO_LOG(error) << "[AndroidAutoEntity] ping timer exceeded.";
-            this->triggerQuit();
+            OPENAUTO_LOG(error) << "[AndroidAutoEntity] ping timer exceeded but will ignore this error";
+            // this->triggerQuit();
         }
     });
 

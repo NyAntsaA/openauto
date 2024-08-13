@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include <f1x/aasdk/Channel/Sensor/SensorServiceChannel.hpp>
+#include <aasdk/Channel/Sensor/SensorServiceChannel.hpp>
 #include <f1x/openauto/autoapp/Service/IService.hpp>
 
 namespace f1x

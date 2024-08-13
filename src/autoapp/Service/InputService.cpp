@@ -177,7 +177,7 @@ void InputService::onTouchEvent(const projection::TouchEvent& event)
         auto touchLocation = touchEvent->add_touch_location();
         touchLocation->set_x(event.x);
         touchLocation->set_y(event.y);
-        touchLocation->set_pointer_id(0);
+        touchLocation->set_pointer_id(2);  /* AA draws on layer #2 not on layer #0. So sent the cursor to it */
 
         auto promise = aasdk::channel::SendPromise::defer(strand_);
         promise->then([]() {}, std::bind(&InputService::onChannelError, this->shared_from_this(), std::placeholders::_1));
