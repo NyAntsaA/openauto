@@ -121,7 +121,9 @@ void SensorService::sendDrivingStatusUnrestricted()
 void SensorService::sendNightData()
 {
     aasdk::proto::messages::SensorEventIndication indication;
-    indication.add_night_mode()->set_is_night(false);
+    aasdk::proto::data::NightMode* nightMode = indication.add_night_mode();
+    bool value = nightMode->is_night() ? true : false;
+    nightMode->set_is_night(value);
 
     auto promise = aasdk::channel::SendPromise::defer(strand_);
     promise->then([]() {}, std::bind(&SensorService::onChannelError, this->shared_from_this(), std::placeholders::_1));
